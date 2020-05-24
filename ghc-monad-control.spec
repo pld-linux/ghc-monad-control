@@ -6,45 +6,33 @@
 Summary:	Generic control operations
 Summary(pl.UTF-8):	Ogólne operacje sterujące
 Name:		ghc-%{pkgname}
-Version:	0.3.2.2
+Version:	1.0.2.3
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/monad-control
 Source0:	http://hackage.haskell.org/package/monad-control-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	cc836f29b8e95c6b6ea28d804422ae1c
+# Source0-md5:	4b7ba1532ac949818947d08f2aa88d0c
 URL:		http://hackage.haskell.org/package/monad-control
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 3
-BuildRequires:	ghc-base < 5
 BuildRequires:	ghc-base-unicode-symbols >= 0.1.1
-BuildRequires:	ghc-base-unicode-symbols < 0.3
 BuildRequires:	ghc-transformers >= 0.2
-BuildRequires:	ghc-transformers < 0.4
 BuildRequires:	ghc-transformers-base >= 0.4.1
-BuildRequires:	ghc-transformers-base < 0.5
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
 BuildRequires:	ghc-base-prof >= 3
-BuildRequires:	ghc-base-prof < 5
 BuildRequires:	ghc-base-unicode-symbols-prof >= 0.1.1
-BuildRequires:	ghc-base-unicode-symbols-prof < 0.3
 BuildRequires:	ghc-transformers-prof >= 0.2
-BuildRequires:	ghc-transformers-prof < 0.4
 BuildRequires:	ghc-transformers-base-prof >= 0.4.1
-BuildRequires:	ghc-transformers-base-prof < 0.5
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
 Requires:	ghc-base >= 3
-Requires:	ghc-base < 5
 Requires:	ghc-base-unicode-symbols >= 0.1.1
-Requires:	ghc-base-unicode-symbols < 0.3
 Requires:	ghc-transformers >= 0.2
-Requires:	ghc-transformers < 0.4
 Requires:	ghc-transformers-base >= 0.4.1
-Requires:	ghc-transformers-base < 0.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -71,13 +59,9 @@ Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-base-prof >= 3
-Requires:	ghc-base-prof < 5
 Requires:	ghc-base-unicode-symbols-prof >= 0.1.1
-Requires:	ghc-base-unicode-symbols-prof < 0.3
 Requires:	ghc-transformers-prof >= 0.2
-Requires:	ghc-transformers-prof < 0.4
 Requires:	ghc-transformers-base-prof >= 0.4.1
-Requires:	ghc-transformers-base-prof < 0.5
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when
@@ -137,20 +121,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE NEWS README.markdown
+%doc CHANGELOG LICENSE README.markdown
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSmonad-control-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonad-control-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonad-control-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonad-control-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonad-control-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Trans
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Trans/Control.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Trans/Control.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonad-control-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSmonad-control-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Control/Monad/Trans/Control.p_hi
 %endif
 
