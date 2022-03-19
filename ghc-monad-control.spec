@@ -7,7 +7,7 @@ Summary:	Generic control operations
 Summary(pl.UTF-8):	Ogólne operacje sterujące
 Name:		ghc-%{pkgname}
 Version:	1.0.2.3
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/monad-control
